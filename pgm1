@@ -1,0 +1,79 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the freqQuery function below.
+def freqQuery(queries):
+    L = len(queries)
+    R = []
+    S = []
+    for i in range(0,L):
+        a = queries[i][0]
+        b = queries[i][1]
+        if(a == 1):
+            R.append(b)
+        if(a == 2):
+            if(len(R)>0):
+                j = 0
+                while (j<len(R)):
+                 ##   print(j," ",len(R))
+                    if(R[j]==b):
+                        break
+                    j = j+1
+                if(j != L):
+                    r = []
+                    r = R[0:j]
+                    for k in range (j+1,len(R)):
+                        r.append(R[k])    
+                    R = []
+                    R = r
+        if(a == 3):
+            if(len(R)>0):
+                Cn = []
+                R = sorted(R)
+                n = R[0]
+                count = 0
+                k = 0
+                while (k<len(R)) :   
+                    if(n==R[k]):
+                        count = count+1
+                        k = k+1
+                    else:
+                        n = R[k]
+                        Cn.append(count)
+                        count = 1
+                        k = k+1
+                Cn.append(count)
+                if( (b in Cn) == True):
+                    S.append(1)
+                else:
+                    S.append(0)
+                print(Cn,"  ",b,"  ",R )
+            else:
+                S.append(0)
+                
+    return S
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input().strip())
+
+    queries = []
+    cn = 0
+
+    for _ in range(q):
+##        if(input().rstrip().split()) == None:
+##            break
+        queries.append(list(map(int, input().rstrip().split())))
+
+    ans = freqQuery(queries)
+
+    fptr.write('\n'.join(map(str, ans)))
+    fptr.write('\n')
+
+    fptr.close()
