@@ -1,0 +1,24 @@
+def checkMagazine(magazine, note):
+    lenm = len(magazine)
+    lenn = len(note)
+    words = []
+    i =0
+    temp = 0
+    while(i<lenn):
+        j = 0
+        while(magazine[j]!=note[i]):
+  #          print(magazine[j],note[i])
+            j = j+1
+            if(j==lenm):
+                temp = 1
+                print('No')
+                break
+        i=i+1
+        if temp == 1:
+            break
+        else:
+            del(magazine[j])
+            lenm =lenm-1
+        #print(i)
+    if(temp==0):
+        print('Yes')
